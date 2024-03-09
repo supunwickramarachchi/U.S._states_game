@@ -13,7 +13,9 @@ guessed_states = []
 
 while len(guessed_states) < 50:
     answer_state = screen.textinput(title=f"{len(guessed_states)}/50 States Correct",
-                                    prompt="What's another state's name?").title()
+                                    prompt="What's another state's name?")
+    if answer_state is not None:
+        answer_state = answer_state.title()
     if answer_state == "Exit":
         missing_states = []
         for state in all_states:
@@ -28,5 +30,5 @@ while len(guessed_states) < 50:
         t.hideturtle()
         t.penup()
         state_data = data[data.state == answer_state]
-        t.goto(int(state_data.x), int(state_data.y))
+        t.goto(int(state_data.x.iloc[0]), int(state_data.y.iloc[0]))
         t.write(answer_state)
